@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, session
 from flask_socketio import SocketIO, emit
+import os
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '1234567890'
@@ -25,4 +26,4 @@ def index():
 	return render_template('index.html')
 
 if __name__ == '__main__':
-	socketio.run(app)
+	socketio.run(app, port=int(os.environ.get('PORT', '5000')), debug=True)
