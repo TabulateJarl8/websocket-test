@@ -1,2 +1,5 @@
 flask-socketio~=5.0.2
 flask~=2.0.1
+
+# heroku
+eventlet~=0.32.0
