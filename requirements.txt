@@ -3,3 +3,4 @@ flask~=2.0.1
 
 # heroku
 eventlet~=0.32.0
+gunicorn~=20.1.0
