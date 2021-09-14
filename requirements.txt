@@ -1,2 +1,5 @@
 python-socketio~=5.0.2
 flask~=2.0.1
+
+# heroku
+gunicorn~=20.1.0
