@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>good chat app</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
+</head>
+<body>
+	<h1>The good chat app</h1><h3>(websocket test)</h3>
+	<hr>
+	<div id="message_box"></div>
+	<div style='margin-bottom: 0.5rem; margin-top: 3rem;'>
+		<form onsubmit='return send_message();'>
+			<input id="message_sender" type="text" /> <input type='Submit' value='Send' />
+		</form>
+	</div>
+	<form autocomplete="off" onsubmit='return change_username();'>
+		<label for='username'>Username:</label>
+		<br>
+		<input id='username' type='text' /> <input type='submit' value='Change' />
+	</form>
+	<script type="text/javascript" charset="utf-8">
+		var socket = io();
+
+		function change_username() {
+			console.log('Changed username to ' + document.getElementById('username').value);
+			socket.emit('change_username', {data: document.getElementById('username').value});
+			document.getElementById('message_sender').focus();
+			return false;
+		}
+
+		function send_message() {
+			socket.emit('message_send', {data: document.getElementById('message_sender').value});
+			document.getElementById('message_sender').value = '';
+			return false;
+		};
+
+		socket.on('new_message', (response) => {
+			console.log(response);
+			var line_break = '<br />';
+			if (document.getElementById('message_box').innerHTML.trim() == '') {
+				line_break = '';
+			}
+			document.getElementById('message_box').innerHTML += line_break + response.data;
+		});
+	</script>
+</body>
+</html>
+
