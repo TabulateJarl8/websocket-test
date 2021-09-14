@@ -7,6 +7,10 @@ app.config['SECRET_KEY'] = '1234567890'
 socketio = SocketIO(app)
 socketio.init_app(app, cors_allowed_origins="*")
 
+@socketio.on('connect')
+def on_connect():
+	emit('new_message', {'data': 'Someone new has joined'}, broadcast=True)
+
 @socketio.on('message_send')
 def send_message(data):
 	print('RECIEVED ' + data['data'])
