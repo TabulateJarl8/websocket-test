@@ -42,6 +42,10 @@
 			}
 			document.getElementById('message_box').innerHTML += line_break + response.data;
 		});
+
+		window.addEventListener('beforeunload', function(e){
+			socket.close();
+		});
 	</script>
 </body>
 </html>
