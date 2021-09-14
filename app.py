@@ -5,12 +5,13 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = '1234567890'
 socketio = SocketIO(app)
 
-@socketio.on('connect')
-def show_connect_status(data):
-	print(f'Connected: {data!r}')
+#@socketio.on('connect')
+#def show_connect_status(data):
+#	print(f'Connected: {data!r}')
 
 @socketio.on('message_send')
 def send_message(data):
+	print('RECIEVED ' + data)
 	username = session.get('username', 'unknown')
 	data['data'] = username + ': ' + data['data']
 	emit('new_message', data, broadcast=True)
